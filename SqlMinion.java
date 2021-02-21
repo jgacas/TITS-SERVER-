@@ -8,10 +8,10 @@ import java.util.Scanner;
 
 public class SqlMinion {
 
-    static String IP = "144.202.15.194";
-    static String USER = "TITS";
-    static String PASS = "TITS";
-    static String DB_URL = "jdbc:mysql://144.202.15.194:3306/teopolis";
+    static String IP = "XXXXXXXXXXXXXXXX";
+    static String USER = "xxxx";
+    static String PASS = "xxxx";
+    static String DB_URL = "jdbc:mysql://XXXXXXXXXXXXXXX";
 
     public SqlMinion() {
     }
