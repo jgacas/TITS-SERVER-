@@ -1,4 +1,4 @@
-package com.company;
+package com.company; // struktura foldera mora da prati hijerarhiju paketa, zato da ova klasa mora da bude u com/company folderu
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -9,18 +9,27 @@ import java.sql.SQLException;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 
+// Ime klase uvek treba da pocne velikim slovom, koristi CamelCase
 public class gamelist {
 
+    // Kada popravis foldere onda lepo importuj i Session klasu
+    // Nigde nisi koristio enkapsulaciju, svako polje u klasi treba da bude private, da ne bi moglo spolja da se menja
     public ConcurrentHashMap<String, Session> sessionConcurrentHashMap = new ConcurrentHashMap<>();
 
-
+    // Konvencija pri imenovanju java promenljivih je da se koristi camelCase, znaci ova promenljiva treba da bude electorCount
+    // enkapsulacija
+    //
     public String electorcount = "placeholder";
 
+    // ako imas samo default konstruktor koji nista ne radi ne treba da ga ni navodis, kompajler ce ga sam napraviti
     public gamelist() {
     }
 
+    // Konvencija pri imenovanju java promenljivih je da se koristi camelCase, znaci ova promenljiva treba da bude assSession
     public void addsession(String gameid) throws SQLException {
+        // ponovo ne prepoznaje Session klasu
         sessionConcurrentHashMap.put(gameid, new Session(gameid));
+
         sessionConcurrentHashMap.get(gameid).rnGjesus1.preparedecks();
         sessionConcurrentHashMap.get(gameid).rnGjesus1.CreateCard();
 
@@ -29,12 +38,16 @@ public class gamelist {
     //  sessionConcurrentHashMap.get(gameid).addplayer(master);
     public void listensocket() {
 
+        // izdvoj socket kao konstantu klase
         try (ServerSocket ss = new ServerSocket(3333)) {
+            // Ako zelis beskonacnu petlju konvencija je da se koristi while (true)
+            // treba dodati ovde neki uslov, tipa citanje inputa ne daje null ili tako nesto, ovo nije bas dobro da imas beskonacnu petlju u kodu
             while (1 > 0) {
 
                 Socket s = ss.accept();
                 DataInputStream din = new DataInputStream(s.getInputStream());
                 DataOutputStream dout = new DataOutputStream(s.getOutputStream());
+                // promenljive uvek pocinju malim slovom
                 String Paloki = din.readUTF();
                 String[] Palokiz = Paloki.split("spergzilion");
 
@@ -46,8 +59,11 @@ public class gamelist {
         }
     }
 
+    // camelCase za ime metode
     public String filtertheneedful(String[] Palokiz) throws SQLException {
+        // ja bih ovde umesto String[] napisao klasu koja parsira String koji dobijemo sa din.readUTF();, ovo je jako necitljivo
         if (Palokiz[0].equals("getscore")) {
+            //
             sessionConcurrentHashMap.get(Palokiz[1]).setDoomsdayclock("no");
             return sessionConcurrentHashMap.get(Palokiz[1]).getScores();
         } else if (Palokiz[0].equals("getanswers")) {
@@ -58,6 +74,7 @@ public class gamelist {
             return sessionConcurrentHashMap.get(Palokiz[1]).getQuestion();
         } else if (Palokiz[0].equals("addplayer")) {
 
+            // sessionConcurrentHashMap je tipa <String, Session>, ovde ce ti puci jer je 1 integer
             if (sessionConcurrentHashMap.get(1).adhoccheck().contains(Palokiz[2])) {
                 return " they are alredy here jim ";
             } else {
@@ -95,6 +112,7 @@ public class gamelist {
     }
 
 
+    // ime metode camelCase
     public void cleandoom() {
         {
             this.sessionConcurrentHashMap.forEach((k, v) ->
@@ -113,18 +131,21 @@ public class gamelist {
             });
         }
     }
-
+    // obrisi
     public void inserttheneedful(String gameid, String element) {
     }
 
+    // ime metode camelCase
     public String slctscore(String gameid) {
         return this.sessionConcurrentHashMap.get(gameid).getScores();
     }
 
+    // ime metode camelCase
     public String slctanswer(String gameid) {
         return this.sessionConcurrentHashMap.get(gameid).getAnswers();
     }
 
+    // ime metode camelCase
     public String slctquestion(String gameid) {
         return this.sessionConcurrentHashMap.get(gameid).getQuestion();
     }
